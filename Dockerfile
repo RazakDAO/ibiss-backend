@@ -1,15 +1,18 @@
 FROM richarvey/nginx-php-fpm:latest
 
-# Copier tous les fichiers du projet Laravel dans le serveur
+# Copier les fichiers du projet Laravel
 COPY . /var/www/html
 
-# Indiquer à Nginx où se trouve le dossier public de Laravel
+# Définir le dossier public comme racine Web
 ENV WEBROOT /var/www/html/public
 ENV APP_ENV production
 ENV APP_DEBUG false
 
-# Installer les dépendances du projet sans les outils de développement
-RUN composer install --no-dev --optimize-autoloader
+# CORRECTION : Ajout du flag --ignore-platform-reqs pour ignorer les extensions manquantes au build
+RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs
 
-# Donner les permissions nécessaires à Laravel pour écrire les logs et le cache
+# Appliquer les permissions de stockage requises par Laravel
 RUN chown -R nw:nw /var/www/html/storage /var/www/html/bootstrap/cache
+
+# Lancer les migrations de base de données automatiquement au démarrage
+ENTRYPOINT ["sh", "-c", "php artisan migrate --force && /start.sh"]
