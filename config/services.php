@@ -28,11 +28,21 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
-    'slack' => [
-        'notifications' => [
-            'bot_user_oauth_token' => env('SLACK_BOT_USER_OAUTH_TOKEN'),
-            'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
-        ],
+    'sms' => [
+        'endpoint' => env('SMS_ENDPOINT'),
+        'api_key'  => env('SMS_API_KEY'),
+    ],
+
+    'orange_money' => [
+        'url'             => env('ORANGE_MONEY_URL'),
+        'client_id'       => env('ORANGE_MONEY_CLIENT_ID'),
+        'client_secret'   => env('ORANGE_MONEY_CLIENT_SECRET'),
+        'merchant_key'    => env('ORANGE_MONEY_MERCHANT_KEY'),
+    ],
+
+    'moov_money' => [
+        'url'     => env('MOOV_MONEY_URL'),
+        'api_key' => env('MOOV_MONEY_API_KEY'),
     ],
 
 ];
