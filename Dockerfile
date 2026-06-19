@@ -3,10 +3,10 @@ FROM richarvey/nginx-php-fpm:latest
 # Copier les fichiers du projet Laravel
 COPY . /var/www/html
 
-# AJOUT : Copier la configuration Nginx personnalisée pour Laravel
-COPY conf/nginx.conf /etc/nginx/sites-available/default.conf
+# Indiquer à l'image d'utiliser notre configuration Nginx personnalisée à la racine
+ENV NGINX_CONF /var/www/html/nginx.conf
 
-# Définir le dossier public comme racine Web
+# Définir le dossier public comme racine Web de Laravel
 ENV WEBROOT /var/www/html/public
 ENV APP_ENV production
 ENV APP_DEBUG false
