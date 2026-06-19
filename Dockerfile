@@ -8,11 +8,11 @@ ENV WEBROOT /var/www/html/public
 ENV APP_ENV production
 ENV APP_DEBUG false
 
-# CORRECTION : Ajout du flag --ignore-platform-reqs pour ignorer les extensions manquantes au build
+# Installer les dépendances via Composer
 RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs
 
-# Appliquer les permissions de stockage requises par Laravel
-RUN chown -R nw:nw /var/www/html/storage /var/www/html/bootstrap/cache
+# CORRECTION : Attribution des permissions d'écriture universelles (R/W) sur le stockage
+RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
 # Lancer les migrations de base de données automatiquement au démarrage
 ENTRYPOINT ["sh", "-c", "php artisan migrate --force && /start.sh"]
