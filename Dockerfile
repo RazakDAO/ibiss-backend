@@ -10,6 +10,8 @@ ENV WEBROOT /var/www/html/public
 ENV APP_ENV production
 ENV APP_DEBUG false
 
+EXPOSE 80
+
 # Installer les dépendances via Composer
 RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs
 
